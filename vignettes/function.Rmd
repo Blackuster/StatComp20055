@@ -1,0 +1,65 @@
+---
+title: "function"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{function}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(StatComp20055)
+```
+this function is to calculate the edit distance of two string.
+```r
+alg <- function(word1, word2){
+  len1 = nchar(word1)
+  len2 = nchar(word2)
+  dp = matrix(0,len1+1,len2+1)#define a matrix to store and calculate result
+  dp[,1] = 0:len1
+  dp[1,] = 0:len2
+  #print(dp)
+  #the algorithm
+  for (i in 1:len1){
+    for (j in 1:len2){
+      if (substring(word1,i,i) == substring(word2,j,j)){
+        delta=0
+        }
+      else{
+        delta=1
+      }
+      #print(delta)
+      dp[i+1,j+1] = min(dp[i,j] + delta, min(dp[i,j+1] + 1, dp[i+1,j] + 1))
+    }
+  }
+  f = dp[len1+1,len2+1]
+  print(dp)#to see the total result
+  return(f)#return the value
+}
+```
+
+this function is to judege whether a natural number is a prime number or composite number, if it is a composite number, need print its factor.
+```r
+s <- function(n){
+  j=0
+  for(i in 2:(n-1)){
+    if (n %% i==0){
+      print(i)
+      j=1
+    }
+  }
+  if (j==0){
+    print('prime number')
+  }
+  else{
+    print('composite number')
+  }
+}
+```
